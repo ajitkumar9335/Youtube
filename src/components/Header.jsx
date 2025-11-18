@@ -1,56 +1,91 @@
-import { Menu, Search } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import React from "react";
+import { FiMenu, FiSearch, FiMic, FiBell } from "react-icons/fi";
+import { Link } from "react-router-dom";
 
-const Header = ({ handleSearch, toggleSidebar }) => {
-  const navigate = useNavigate();
-  const username = localStorage.getItem("username");
-
+const Header = ({ toggleSidebar }) => {
   return (
-    <div className="fixed top-0 left-0 right-0 bg-white shadow-md h-16 z-50 flex items-center px-4">
+    <header
+      style={{
+        width: "100%",
+        height: "70px",
+        background: "#fff",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        padding: "0 20px",
+        position: "fixed",
+        top: 0,
+        left: 0,
+        zIndex: 999,
+        boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
+      }}
+    >
+      {/* LEFT SECTION */}
+      <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
+        <FiMenu
+          size={28}
+          color="black"
+          style={{ cursor: "pointer" }}
+          onClick={toggleSidebar}
+        />
 
-      {/* LEFT SECTION: Sidebar + Logo */}
-      <div className="flex items-center gap-4 w-1/4">
-        <button onClick={toggleSidebar}>
-          <Menu size={28} />
-        </button>
-
-        <h1 
-          className="text-xl font-bold cursor-pointer"
-          onClick={() => navigate("/")}
-        >
-          YouTube Clone
-        </h1>
-      </div>
-
-      {/* CENTER: SEARCH BAR */}
-      <div className="flex-1 flex justify-center">
-        <div className="flex items-center bg-gray-200 rounded-full w-full max-w-xl px-4 py-2">
-          <Search size={20} className="text-gray-600" />
-          <input
-            type="text"
-            placeholder="Search"
-            className="ml-2 bg-transparent w-full outline-none"
-            onChange={(e) => handleSearch(e.target.value)}
+        <Link to="/">
+          <img
+            src="https://www.gstatic.com/youtube/img/branding/youtubelogo/svg/youtubelogo.svg"
+            alt="YouTube"
+            style={{ height: "25px" }}
           />
-        </div>
+        </Link>
       </div>
 
-      {/* RIGHT: Sign In / Username */}
-      <div className="w-1/4 flex justify-end">
-        {username ? (
-          <p className="font-semibold">{username}</p>
-        ) : (
-          <button
-            className="px-4 py-2 border rounded-full text-blue-600 border-blue-600 
-                       hover:bg-blue-600 hover:text-white transition"
-            onClick={() => navigate("/login")}
-          >
-            Sign In
-          </button>
-        )}
+      {/* CENTER SEARCH BAR */}
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          width: "45%",
+          maxWidth: "600px",
+          border: "1px solid #ddd",
+          borderRadius: "50px",
+          padding: "5px 15px",
+          background: "#fff",
+        }}
+      >
+        <input
+          type="text"
+          placeholder="Search"
+          style={{
+            flex: 1,
+            border: "none",
+            outline: "none",
+            fontSize: "16px",
+            paddingLeft: "5px",
+          }}
+        />
+        <FiSearch size={20} color="black" />
       </div>
 
-    </div>
+      {/* RIGHT SECTION */}
+      <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
+        <FiMic size={22} color="black" style={{ cursor: "pointer" }} />
+
+        <FiBell size={22} color="black" style={{ cursor: "pointer" }} />
+
+        <button
+          style={{
+            padding: "8px 18px",
+            background: "#0084ff",
+            color: "white",
+            borderRadius: "20px",
+            border: "none",
+            fontSize: "16px",
+            cursor: "pointer",
+          }}
+        >
+          Sign In
+        </button>
+      </div>
+    </header>
   );
 };
 

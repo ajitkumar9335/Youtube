@@ -1,24 +1,30 @@
-import { useNavigate } from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
 
 const VideoCard = ({ video }) => {
-  const navigate = useNavigate();
-
   return (
-    <div 
-      onClick={() => navigate(`/video/${video.videoId}`)}
-      className="rounded-lg shadow hover:shadow-lg cursor-pointer transition">
+    <Link to={`/video/${video.videoId}`} className="block">
+      <div className="rounded-xl overflow-hidden hover:scale-[1.02] transition shadow-sm bg-white">
+        
+        {/* Thumbnail */}
+        <img
+          src={video.thumbnailUrl}
+          alt={video.title}
+          className="w-full h-48 object-cover"
+        />
 
-      <img
-        src={video.thumbnailUrl}
-        className="w-full h-40 object-cover rounded-t-lg"
-      />
+        {/* Video info */}
+        <div className="p-3">
+          <h3 className="font-semibold text-lg line-clamp-2">
+            {video.title}
+          </h3>
 
-      <div className="p-3">
-        <h3 className="font-semibold text-sm">{video.title}</h3>
-        <p className="text-gray-600">{video.channelId}</p>
-        <p className="text-gray-500 text-xs">{video.views} views</p>
+          <p className="text-sm text-gray-500 mt-1">
+            {video.channelId} • {video.views} views
+          </p>
+        </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

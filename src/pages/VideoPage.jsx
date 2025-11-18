@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "../api/axiosConfig";
 import Header from "../components/Header";
 
@@ -85,7 +86,9 @@ const VideoPage = () => {
               />
 
               <div>
-                <h3 className="font-bold text-lg">{video.channelId}hi</h3>
+                <Link to={`/channel/${video.channelId}`} className="font-semibold hover:underline">
+  {video.channelName}
+</Link>
                 <p className="text-gray-600 text-sm">
                   {video.subscribers?.toLocaleString()} 9000 subscribers
                 </p>

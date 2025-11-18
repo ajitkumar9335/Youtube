@@ -1,32 +1,31 @@
-const filters = [
-  "All",
-  "Music",
-  "Gaming",
-  "Movies",
-  "Tech",
-  "React",
-  "Education",
-];
+const Categories = () => {
+  const list = [
+    "All",
+    "Music",
+    "News",
+    "Gaming",
+    "Monetization",
+    "Podcasts",
+    "Lo-fi",
+    "Mixes",
+    "Live",
+    "Tripods",
+    "Indian pop music",
+    "Recruitment",
+  ];
 
-const Filters = ({ setFilter }) => {
   return (
-   <div className="flex gap-3 overflow-x-auto bg-white sticky top-16 z-40 px-3 py-2">
-  {filters.map((filter) => (
-    <button
-      key={filter}
-      onClick={() => applyFilter(filter)}
-      className={`px-4 py-2 rounded-full border ${
-        selectedFilter === filter
-          ? "bg-black text-white"
-          : "bg-gray-200 text-black"
-      }`}
-    >
-      {filter}
-    </button>
-  ))}
-</div>
-
+    <div className="flex space-x-3 overflow-x-auto no-scrollbar bg-[#0F0F0F] text-white py-3 px-6 mt-16">
+      {list.map((item) => (
+        <button
+          key={item}
+          className="px-4 py-1.5 bg-gray-800 rounded-full text-sm whitespace-nowrap hover:bg-gray-700"
+        >
+          {item}
+        </button>
+      ))}
+    </div>
   );
 };
 
-export default Filters;
+export default Categories;

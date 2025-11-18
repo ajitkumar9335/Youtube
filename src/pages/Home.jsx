@@ -1,110 +1,49 @@
-import { useEffect, useState } from "react";
-import api from "../api/axiosConfig";
+import React, { useEffect, useState } from "react";
+import axios from "../api/axiosConfig";
 import VideoCard from "../components/VideoCard";
-import Header from "../components/Header";
-import Sidebar from "../components/Sidebar";
 
 const Home = () => {
   const [videos, setVideos] = useState([]);
-  const [filteredVideos, setFilteredVideos] = useState([]);
-  const [selectedFilter, setSelectedFilter] = useState("All");
-  const [searchText, setSearchText] = useState("");
-  const [sidebarOpen, setSidebarOpen] = useState(true);
-
-  const filters = [
-    "All",
-    "React",
-    "JavaScript",
-    "MERN",
-    "Gaming",
-    "Tech",
-    "Fitness",
-    "Food",
-    "Travel",
-    "Education"
-  ];
 
   useEffect(() => {
     const fetchVideos = async () => {
-      const res = await api.get("/videos");
-      setVideos(res.data);
-      setFilteredVideos(res.data);
+      try {
+        const res = await axios.get("/videos");
+        setVideos(res.data);
+      } catch (err) {
+        console.error(err);
+      }
     };
     fetchVideos();
   }, []);
 
-  const applyFilter = (category) => {
-    setSelectedFilter(category);
-
-    let updated = [...videos];
-
-    if (category !== "All") {
-      updated = updated.filter(
-        (v) => v.category?.toLowerCase() === category.toLowerCase()
-      );
-    }
-
-    if (searchText.trim() !== "") {
-      updated = updated.filter((v) =>
-        v.title.toLowerCase().includes(searchText.toLowerCase())
-      );
-    }
-
-    setFilteredVideos(updated);
-  };
-
-  const handleSearch = (text) => {
-    setSearchText(text);
-
-    let updated = [...videos];
-
-    updated = updated.filter((v) =>
-      v.title.toLowerCase().includes(text.toLowerCase())
-    );
-
-    if (selectedFilter !== "All") {
-      updated = updated.filter(
-        (v) => v.category?.toLowerCase() === selectedFilter.toLowerCase()
-      );
-    }
-
-    setFilteredVideos(updated);
-  };
-
   return (
-    <div className="flex bg-gray-100 min-h-screen">
-
-      <Header handleSearch={handleSearch} toggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
-
-      <Sidebar isOpen={sidebarOpen} />
-
-      <div className={`pt-16 w-full transition-all ${sidebarOpen ? "ml-56" : "ml-20"}`}>
-
-        {/* FILTER BAR — ZERO GAP */}
-        <div className="flex gap-3 overflow-x-auto bg-white sticky top-16 z-40 px-3 py-2 ">
-          {filters.map((filter) => (
+    <div className="w-full px-6 mt-20">
+      {/* Filters Row */}
+      <div className="flex gap-4 overflow-x-auto whitespace-nowrap pb-4 no-scrollbar">
+        {["All", "React", "JavaScript", "MERN", "Tech", "Fitness", "Gaming"].map(
+          (f) => (
             <button
-              key={filter}
-              onClick={() => applyFilter(filter)}
-              className={`px-4 py-2 rounded-full text-sm border ${
-                selectedFilter === filter
-                  ? "bg-black text-white"
-                  : "bg-gray-200 text-black"
-              }`}
+              key={f}
+              className="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-full text-sm font-medium"
             >
-              {filter}
+              {f}
             </button>
-          ))}
-        </div>
+          )
+        )}
+      </div>
 
-        {/* VIDEOS GRID */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 
-                        lg:grid-cols-4 gap-4 p-4">
-          {filteredVideos.map((video) => (
-            <VideoCard key={video.videoId} video={video} />
-          ))}
-        </div>
-
+      {/* 3-COLUMN VIDEO GRID */}
+      <div
+        className="grid gap-6 
+        grid-cols-1 
+        sm:grid-cols-2 
+        lg:grid-cols-3 
+        xl:grid-cols-3"
+      >
+        {videos.map((video) => (
+          <VideoCard key={video.videoId} video={video} />
+        ))}
       </div>
     </div>
   );

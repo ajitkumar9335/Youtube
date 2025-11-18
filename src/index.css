@@ -1,1 +1,14 @@
 @import "tailwindcss";
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.page-container {
+  margin-top: 80px;  /* header space */
+  padding-left: 0px; /* optional */
+}

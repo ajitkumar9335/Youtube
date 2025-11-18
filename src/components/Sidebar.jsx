@@ -1,48 +1,39 @@
-import { Home, PlaySquare, User, Clock, Film, Gamepad2 } from "lucide-react";
+import React from "react";
+import { Link } from "react-router-dom";
 
 const Sidebar = ({ isOpen }) => {
   return (
     <div
-      className={`h-screen bg-white border-r border-gray-300 fixed top-0 left-0 z-20 
-        transition-all duration-300
-        ${isOpen ? "w-56" : "w-20"}
-      `}
+      className={`fixed top-0 left-0 h-full bg-[#0F0F0F] text-white pt-20 transition-all duration-300 shadow-xl 
+      ${isOpen ? "w-64" : "w-20"}
+    `}
     >
-      <div className="flex flex-col gap-4 mt-20 px-3 text-black">
-        
-        <div className="flex items-center gap-3 hover:bg-gray-200 p-2 rounded-lg cursor-pointer">
-          <Home />
-          {isOpen && <span>Home</span>}
-        </div>
+      <nav className="flex flex-col space-y-5 px-4">
+        <Link className="flex items-center space-x-4 hover:bg-gray-800 px-3 py-2 rounded">
+          <span className="text-2xl">🏠</span>
+          {isOpen && <span className="text-sm">Home</span>}
+        </Link>
 
-        <div className="flex items-center gap-3 hover:bg-gray-200 p-2 rounded-lg cursor-pointer">
-          <PlaySquare />
-          {isOpen && <span>Shorts</span>}
-        </div>
+        <Link className="flex items-center space-x-4 hover:bg-gray-800 px-3 py-2 rounded">
+          <span className="text-2xl">🎬</span>
+          {isOpen && <span className="text-sm">Shorts</span>}
+        </Link>
 
-        <div className="flex items-center gap-3 hover:bg-gray-200 p-2 rounded-lg cursor-pointer">
-          <User />
-          {isOpen && <span>You</span>}
-        </div>
+        <Link className="flex items-center space-x-4 hover:bg-gray-800 px-3 py-2 rounded">
+          <span className="text-2xl">📺</span>
+          {isOpen && <span className="text-sm">Subscriptions</span>}
+        </Link>
 
-        <div className="flex items-center gap-3 hover:bg-gray-200 p-2 rounded-lg cursor-pointer">
-          <Clock />
-          {isOpen && <span>History</span>}
-        </div>
+        <Link className="flex items-center space-x-4 hover:bg-gray-800 px-3 py-2 rounded">
+          <span className="text-2xl">👤</span>
+          {isOpen && <span className="text-sm">You</span>}
+        </Link>
 
-        <hr className="border-gray-300" />
-
-        <div className="flex items-center gap-3 hover:bg-gray-200 p-2 rounded-lg cursor-pointer">
-          <Film />
-          {isOpen && <span>Movies</span>}
-        </div>
-
-        <div className="flex items-center gap-3 hover:bg-gray-200 p-2 rounded-lg cursor-pointer">
-          <Gamepad2 />
-          {isOpen && <span>Gaming</span>}
-        </div>
-        
-      </div>
+        <Link className="flex items-center space-x-4 hover:bg-gray-800 px-3 py-2 rounded">
+          <span className="text-2xl">⏳</span>
+          {isOpen && <span className="text-sm">History</span>}
+        </Link>
+      </nav>
     </div>
   );
 };
