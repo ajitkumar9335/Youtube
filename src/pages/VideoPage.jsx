@@ -85,7 +85,7 @@ const VideoPage = () => {
               />
 
               <div>
-                <h3 className="font-bold text-lg">{video.channelName}hi</h3>
+                <h3 className="font-bold text-lg">{video.channelId}hi</h3>
                 <p className="text-gray-600 text-sm">
                   {video.subscribers?.toLocaleString()} 9000 subscribers
                 </p>
